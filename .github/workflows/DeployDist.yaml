@@ -16,12 +16,13 @@ jobs:
                 node-version: 20
             # - name: print node vesion
             #   run: node -v
-            - name: Install Dependencies
+            - name: Cache Dependencies
+              
               run: npm ci
             - name: Run tests
               run: npm run test
     deploy:
-        needs: test
+        needs: test     # - this means when test job run then after the deploy job will run 
         runs-on: ubuntu-latest
         steps:
           - name: Get code
