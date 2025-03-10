@@ -34,8 +34,8 @@ jobs:
               run: npm ci
             - name: Run tests
               run: npm run test
-    deploy:
-        needs: test     # - this means when test job run then after the deploy job will run 
+    build:
+        needs: test
         runs-on: ubuntu-latest
         steps:
           - name: Get code
@@ -53,5 +53,19 @@ jobs:
             run: npm ci
           - name: Build project
             run: npm run build
+          - name: Upload Dist Artifact
+            uses: actions/upload-artifact@v4
+            with:
+              name: dist-files
+              path: dist
+    deploy:
+        needs: build     # - this means when test job run then after the deploy job will run 
+        runs-on: ubuntu-latest
+        steps:
+          - name: Download Dist Artifact
+            uses: actions/upload-artifact@v4
+            with:
+              name: dist-files
+              path: dist
           - name: Deploy
             run: echo "Deploy successful"
