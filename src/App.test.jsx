@@ -8,7 +8,7 @@ test('renders Github Actions heading', () => {
   const headingElement = screen.getByText(/Github Actions/i);
   expect(headingElement).toBeInTheDocument();
 });
-
+// this is a second comment
 test('contains an h1 element', () => {
   const { container } = render(<App />);
   const h1Element = container.querySelector('h1');
